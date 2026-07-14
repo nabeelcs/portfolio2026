@@ -1,0 +1,23 @@
+{
+  "name": "nabeel-ahmad-portfolio",
+  "version": "1.0.0",
+  "description": "Ultra-Premium, SEO & LLM-Optimized Portfolio for Nabeel Ahmad - Senior Support Engineer & Full Stack WordPress Developer",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Static portfolio build complete.'",
+    "start": "npx serve ."
+  },
+  "author": "Nabeel Ahmad <nabeelahmad826@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "wordpress developer",
+    "full stack wordpress developer",
+    "web developer",
+    "senior support engineer",
+    "custom wordpress theme",
+    "wordpress plugin development",
+    "nabeel ahmad",
+    "vercel"
+  ]
+}

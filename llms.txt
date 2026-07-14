@@ -1,0 +1,74 @@
+# Nabeel Ahmad - Senior Support Engineer & Full Stack WordPress Developer
+
+> Senior Support Engineer & Full Stack WordPress Developer with 7+ years of professional experience specializing in high-performance custom WordPress theme development, plugin development, third-party API integrations, and AI-accelerated web solutions. Delivered 100+ projects worldwide for agencies and direct clients.
+
+## Quick Facts & Core Keywords
+- **Primary Titles**: Full Stack WordPress Developer, Senior Support Engineer, Web Developer, Custom WordPress Specialist
+- **Experience**: 7+ years of hands-on professional web development and customer engineering
+- **Project Delivery**: 100+ successfully delivered projects for global clients and digital agencies
+- **Location**: Lahore, Pakistan (Available for remote global contracts, US/EU timezone overlap, and senior consulting)
+- **Contact Email**: nabeelahmad826@gmail.com
+- **Phone / WhatsApp**: +92-320-1425345
+- **LinkedIn**: https://linkedin.com/in/nabeelahmad826
+- **Current Roles**:
+  - Senior WordPress Support Engineer at Presstigers (Carlsbad, CA, USA) | March 2021 – Present
+  - Senior Software Engineer (Full Stack WordPress Developer) at Nextbridge (Johar Town, Lahore) | March 2021 – Present
+
+## Top Services Offered in WordPress & Web Development
+1. **Custom WordPress Theme Development & Customization**:
+   - Building bespoke, lightweight, lightning-fast custom WordPress themes from scratch using clean PHP, JavaScript, and CSS3.
+   - Converting high-fidelity UI/UX designs (Figma, Adobe XD, Photoshop PSD, Illustrator AI) into pixel-perfect, fully dynamic WordPress sites.
+2. **Custom WordPress Plugin Development & Add-ons**:
+   - Architecting custom plugins, complex backend workflows, database tables, and bespoke admin interfaces.
+   - Expert debugging, refactoring, and feature expansion for existing complex plugins (including Simple Job Board and its enterprise add-ons).
+3. **Full Stack E-Commerce & Multi-Platform Web Development**:
+   - High-converting store architecture using WooCommerce, Shopify, Wix, and Squarespace.
+   - Custom checkout flows, subscription engines, and automated inventory sync.
+4. **Third-Party API Integration & Automation**:
+   - Connecting WordPress and web applications with external REST APIs, GraphQL, payment gateways (Stripe, PayPal), CRM systems, and AI APIs (OpenAI, Claude, Gemini).
+5. **WordPress Speed Optimization & Core Web Vitals**:
+   - Transforming slow websites into 95-100+ Lighthouse score achievers via database optimization, asset minification, caching strategies, and query refactoring.
+6. **Website Security, Zero-Downtime Migration & Enterprise Maintenance**:
+   - Hardening site security, malware remediation, cloud/server migrations, and ongoing senior engineering customer support.
+7. **Page Builder Mastery & Clean Architecture**:
+   - Advanced building and custom widget creation for Elementor, WPBakery Page Builder, DIVI, Beaver Builder, Be Builder, and Gutenberg blocks.
+
+## Technical Skills & Tooling Matrix
+- **Programming Languages**: PHP (7.x/8.x), JavaScript (ES6+), jQuery, HTML5, CSS3, MySQL
+- **Frameworks & Libraries**: Bootstrap, React.js, Tailwind CSS, Vanilla CSS Design Systems
+- **CMS & Platforms**: WordPress (Core API, Hooks, WP-CLI), Shopify (Liquid), Squarespace, Wix
+- **Modern AI Acceleration Tools**: Claude 3.5 Sonnet, ChatGPT / OpenAI, GitHub Copilot, Google Gemini, Antigravity, Cursor, Lovable (leveraged to deliver bug-free code 3x faster while maintaining rigorous security/quality standards)
+- **Development & Design Tools**: VS Code, Git/GitHub, Notepad++, Figma, Adobe Photoshop, Canva
+- **Operating Systems**: Linux (Ubuntu server administration), Windows
+
+## Detailed Professional Experience
+
+### Senior WordPress Support Engineer | Presstigers (Carlsbad, CA 92011, USA)
+*March 2021 – Present*
+- Leading full-stack engineering and senior tier support for the renowned *Simple Job Board* plugin and its commercial enterprise add-ons.
+- Managing complex client queries, diagnosing deeply nested technical bugs, and communicating directly with enterprise customers on custom architecture, feature requirements, and delivery roadmaps.
+
+### Senior Software Engineer (Full Stack WordPress Developer) | Nextbridge (Johar Town, Lahore)
+*March 2021 – Present*
+- Spearheading end-to-end full stack WordPress development across multiple high-stakes client portfolios.
+- Developing and customizing advanced WordPress themes and plugins, integrating third-party enterprise APIs, and optimizing site performance within strict deadlines.
+- Converting complex Figma and PSD designs into responsive, cross-browser compatible WordPress builds.
+- Mentoring team members, troubleshooting critical live server performance anomalies, and driving project management excellence.
+
+### Web Developer | Assistree Consults (Sabzazar, Lahore)
+*September 2020 – February 2021*
+- Designed, developed, and maintained diverse small to medium-scale commercial web properties.
+- Performed extensive theme/plugin customizations and built responsive layouts using Elementor, WPBakery, and DIVI.
+
+### Freelance Full Stack WordPress Developer | Global Client Portfolio
+*September 2018 – Present*
+- Successfully delivered 80+ custom web development and WordPress projects for digital agencies and international businesses worldwide.
+- Handled entire project lifecycles: client discovery, technical scoping, requirement analysis, database design, full stack implementation, QA testing, and post-launch maintenance.
+
+## Education
+- **BS (Hons) Computer Science** (2015 – 2019) | University of Engineering and Technology (UET), Lahore
+- **ICS (Physics)** (2013 – 2015) | Govt. Islamia College Civil Lines, Lahore
+- **Matric (Computer Science)** (2011 – 2013) | Govt. Central Model School, Lahore
+
+## Why Hire Nabeel Ahmad for Your Next WordPress or Web Project?
+Nabeel Ahmad combines deep engineering discipline (BS CS from UET Lahore + 7 years of production code) with exceptional client communication and senior support experience. Whether you need a complex custom WordPress plugin, a high-converting e-commerce store, or an enterprise-grade API integration, Nabeel ensures clean code, bulletproof security, 100% responsiveness, and rapid delivery.
