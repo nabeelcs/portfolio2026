@@ -19,5 +19,8 @@
     "wordpress plugin development",
     "nabeel ahmad",
     "vercel"
-  ]
+  ],
+  "devDependencies": {
+    "puppeteer-core": "^25.3.0"
+  }
 }
