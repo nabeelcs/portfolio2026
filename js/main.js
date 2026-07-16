@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initProjectFilters();
   initContactForm();
   initFooterYear();
+  initTestimonialsSlider();
+  initBackToTop();
 });
 
 /* ==========================================================================
@@ -307,4 +309,172 @@ function initContactForm() {
 function initFooterYear() {
   const yearSpan = document.getElementById('year');
   if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+}
+
+/* ==========================================================================
+   8. TESTIMONIALS SLIDER ENGINE
+   ========================================================================== */
+function initTestimonialsSlider() {
+  const track = document.getElementById('testimonialsTrack');
+  const prevBtn = document.getElementById('sliderPrevBtn');
+  const nextBtn = document.getElementById('sliderNextBtn');
+  const dotsContainer = document.getElementById('sliderDots');
+  const slides = document.querySelectorAll('.testimonial-slide');
+  
+  if (!track || !prevBtn || !nextBtn || !dotsContainer || !slides.length) return;
+  
+  let currentIndex = 0;
+  let autoPlayInterval;
+  
+  function getSlidesPerView() {
+    return window.innerWidth >= 992 ? 2 : 1;
+  }
+  
+  function getMaxIndex() {
+    return Math.max(0, slides.length - getSlidesPerView());
+  }
+  
+  function updateSlider() {
+    const maxIndex = getMaxIndex();
+    if (currentIndex > maxIndex) {
+      currentIndex = maxIndex;
+    }
+    
+    const isDesktop = window.innerWidth >= 992;
+    const slideWidth = isDesktop ? 50 : 100;
+    track.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
+    
+    // Update dots
+    const dots = dotsContainer.querySelectorAll('.slider-dot');
+    dots.forEach((dot, index) => {
+      if (index === currentIndex) {
+        dot.classList.add('active');
+      } else {
+        dot.classList.remove('active');
+      }
+    });
+  }
+  
+  function createDots() {
+    dotsContainer.innerHTML = '';
+    const maxIndex = getMaxIndex();
+    for (let i = 0; i <= maxIndex; i++) {
+      const dot = document.createElement('button');
+      dot.classList.add('slider-dot');
+      if (i === currentIndex) dot.classList.add('active');
+      dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+      dot.addEventListener('click', () => {
+        currentIndex = i;
+        updateSlider();
+        resetAutoPlay();
+      });
+      dotsContainer.appendChild(dot);
+    }
+  }
+  
+  function slideNext() {
+    const maxIndex = getMaxIndex();
+    if (currentIndex >= maxIndex) {
+      currentIndex = 0;
+    } else {
+      currentIndex++;
+    }
+    updateSlider();
+  }
+  
+  function slidePrev() {
+    const maxIndex = getMaxIndex();
+    if (currentIndex <= 0) {
+      currentIndex = maxIndex;
+    } else {
+      currentIndex--;
+    }
+    updateSlider();
+  }
+  
+  nextBtn.addEventListener('click', () => {
+    slideNext();
+    resetAutoPlay();
+  });
+  
+  prevBtn.addEventListener('click', () => {
+    slidePrev();
+    resetAutoPlay();
+  });
+  
+  function startAutoPlay() {
+    autoPlayInterval = setInterval(slideNext, 5000);
+  }
+  
+  function resetAutoPlay() {
+    clearInterval(autoPlayInterval);
+    startAutoPlay();
+  }
+  
+  // Handle resize to adjust slides per view and recreate dots
+  let lastWidth = window.innerWidth;
+  window.addEventListener('resize', () => {
+    const currentWidth = window.innerWidth;
+    const wasDesktop = lastWidth >= 992;
+    const isDesktopNow = currentWidth >= 992;
+    if (wasDesktop !== isDesktopNow) {
+      lastWidth = currentWidth;
+      createDots();
+      updateSlider();
+    }
+  });
+  
+  // Swipe support for touch screens
+  let startX = 0;
+  let endX = 0;
+  track.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+  }, { passive: true });
+  
+  track.addEventListener('touchend', (e) => {
+    endX = e.changedTouches[0].clientX;
+    const diff = startX - endX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        slideNext();
+      } else {
+        slidePrev();
+      }
+      resetAutoPlay();
+    }
+  }, { passive: true });
+  
+  // Pause autoplay on hover
+  const sliderContainer = document.querySelector('.testimonials-slider-container');
+  if (sliderContainer) {
+    sliderContainer.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
+    sliderContainer.addEventListener('mouseleave', startAutoPlay);
+  }
+  
+  createDots();
+  updateSlider();
+  startAutoPlay();
+}
+
+/* ==========================================================================
+   9. BACK TO TOP BUTTON LOGIC
+   ========================================================================== */
+function initBackToTop() {
+  const backToTopBtn = document.getElementById('backToTop');
+  if (!backToTopBtn) return;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      backToTopBtn.classList.add('show');
+    } else {
+      backToTopBtn.classList.remove('show');
+    }
+  });
+
+  backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
 }

@@ -502,9 +502,21 @@ button {
 
 .hero-cta-group {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1.25rem;
+  flex-wrap: nowrap;
+  gap: 0.75rem;
   margin-bottom: 3.5rem;
+}
+
+.hero-cta-group .btn {
+  white-space: nowrap;
+  padding: 0.85rem 1.25rem;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 991px) {
+  .hero-cta-group {
+    flex-wrap: wrap;
+  }
 }
 
 .hero-trust {
@@ -1210,24 +1222,79 @@ button {
 }
 
 /* ==========================================================================
-   TESTIMONIALS SECTION
+   TESTIMONIALS SECTION (SLIDER OVERHAUL)
    ========================================================================== */
 .testimonials-section {
   padding: 7rem 0;
+  overflow: hidden;
 }
 
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 2rem;
+.testimonials-slider-container {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.testimonials-track-wrapper {
+  overflow: hidden;
+  padding: 1.5rem 0.5rem;
+  margin: -1.5rem -0.5rem;
+}
+
+.testimonials-track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+.testimonial-slide {
+  flex: 0 0 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+  display: flex;
+}
+
+@media (min-width: 992px) {
+  .testimonial-slide {
+    flex: 0 0 50%;
+  }
 }
 
 .testimonial-card {
   background: hsl(var(--bg-card));
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-lg);
-  padding: 2.25rem;
+  padding: 2.5rem;
   position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all var(--transition-smooth);
+}
+
+.testimonial-card::after {
+  content: "“";
+  position: absolute;
+  top: -15px;
+  right: 25px;
+  font-size: 8rem;
+  font-family: 'Outfit', sans-serif;
+  color: hsl(var(--accent-primary));
+  opacity: 0.08;
+  line-height: 1;
+  pointer-events: none;
+  transition: opacity var(--transition-fast);
+}
+
+.testimonial-slide:hover .testimonial-card {
+  border-color: hsl(var(--accent-primary));
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-glow);
+}
+
+.testimonial-slide:hover .testimonial-card::after {
+  opacity: 0.15;
 }
 
 .testimonial-stars {
@@ -1243,6 +1310,12 @@ button {
   font-style: italic;
   margin-bottom: 1.75rem;
   line-height: 1.7;
+}
+
+.highlight-text {
+  color: hsl(var(--accent-primary));
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(0, 242, 254, 0.15);
 }
 
 .testimonial-author {
@@ -1264,6 +1337,7 @@ button {
   font-weight: 800;
   color: #fff;
   font-size: 1.1rem;
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
 }
 
 .author-info h4 {
@@ -1274,6 +1348,61 @@ button {
 .author-info p {
   font-size: 0.82rem;
   color: hsl(var(--text-muted));
+}
+
+/* Slider Controls */
+.slider-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.slider-nav-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: hsl(var(--bg-card));
+  border: 1px solid var(--border-glass);
+  color: hsl(var(--text-primary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+  z-index: 10;
+}
+
+.slider-nav-btn:hover {
+  background: var(--accent-gradient);
+  color: #fff;
+  border-color: transparent;
+  transform: scale(1.05);
+  box-shadow: var(--accent-glow);
+}
+
+.slider-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.slider-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border-glass);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.slider-dot.active {
+  background: hsl(var(--accent-primary));
+  width: 24px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.4);
 }
 
 /* ==========================================================================
@@ -1612,5 +1741,181 @@ textarea.form-control {
   
   .hero-cta-group .btn {
     width: 100%;
+  }
+}
+
+/* ==========================================================================
+   BACK TO TOP BUTTON
+   ========================================================================== */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--accent-gradient);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg), var(--accent-glow);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(15px);
+  transition: all var(--transition-smooth);
+  z-index: 99;
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(0, 242, 254, 0.4);
+}
+
+.back-to-top svg {
+  transition: transform var(--transition-fast);
+}
+
+.back-to-top:hover svg {
+  transform: translateY(-2px);
+}
+
+[data-theme="light"] .back-to-top {
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   HIRE ME ON PLATFORM PILLS
+   ========================================================================== */
+.hire-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.6rem;
+  background: hsl(var(--bg-surface));
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: hsl(var(--text-secondary));
+  transition: all var(--transition-fast);
+}
+
+.hire-link svg {
+  transition: transform var(--transition-fast);
+}
+
+.hire-link:hover {
+  transform: translateY(-2px);
+  border-color: var(--brand-color);
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 4px 12px var(--brand-glow);
+  color: hsl(var(--text-primary));
+}
+
+.hire-link:hover svg {
+  transform: scale(1.1);
+  color: var(--brand-color) !important;
+}
+
+.hire-link.upwork { --brand-color: #14a800; --brand-glow: rgba(20, 168, 0, 0.15); }
+.hire-link.freelancer { --brand-color: #0087e0; --brand-glow: rgba(0, 135, 224, 0.15); }
+.hire-link.fiverr { --brand-color: #1dbf73; --brand-glow: rgba(29, 191, 115, 0.15); }
+.hire-link.linkedin { --brand-color: #0a66c2; --brand-glow: rgba(10, 102, 194, 0.15); }
+
+[data-theme="light"] .hire-link {
+  background: #ffffff;
+}
+
+[data-theme="light"] .hire-link:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+/* ==========================================================================
+   STICKY SOCIAL SIDEBAR
+   ========================================================================== */
+.sticky-sidebar {
+  position: fixed;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  background: hsl(var(--bg-card) / 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-full);
+  padding: 0.8rem 0.5rem;
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(0, 0, 0, 0.15);
+  z-index: 99;
+  transition: all var(--transition-smooth);
+}
+
+.sidebar-item {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: hsl(var(--text-secondary));
+  background: hsl(var(--bg-surface) / 0.75);
+  border: 1px solid var(--border-glass);
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.sidebar-item:hover {
+  transform: scale(1.15) translateX(3px);
+  color: #ffffff !important;
+  border-color: var(--sidebar-brand-color);
+  box-shadow: 0 4px 15px var(--sidebar-brand-glow);
+  background: var(--sidebar-brand-color);
+}
+
+.sidebar-item.whatsapp {
+  --sidebar-brand-color: #25d366;
+  --sidebar-brand-glow: rgba(37, 211, 102, 0.35);
+}
+
+.sidebar-item.email {
+  --sidebar-brand-color: hsl(var(--accent-primary));
+  --sidebar-brand-glow: rgba(0, 242, 254, 0.35);
+}
+
+.sidebar-item.linkedin {
+  --sidebar-brand-color: #0a66c2;
+  --sidebar-brand-glow: rgba(10, 102, 194, 0.35);
+}
+
+.sidebar-item.calendly {
+  --sidebar-brand-color: #006bff;
+  --sidebar-brand-glow: rgba(0, 107, 255, 0.35);
+}
+
+.sidebar-item.upwork {
+  --sidebar-brand-color: #14a800;
+  --sidebar-brand-glow: rgba(20, 168, 0, 0.35);
+}
+
+.sidebar-item.freelancer {
+  --sidebar-brand-color: #0087e0;
+  --sidebar-brand-glow: rgba(0, 135, 224, 0.35);
+}
+
+/* Hide on mobile/tablet viewports to ensure content space */
+@media (max-width: 1024px) {
+  .sticky-sidebar {
+    display: none;
   }
 }
