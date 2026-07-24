@@ -13,6 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initFooterYear();
   initTestimonialsSlider();
   initBackToTop();
+  initScrollReveal();
+  initStickyBar();
+  initHero3dTilt();
+  initAnimatedCounters();
+  initCtaTypewriter();
 });
 
 /* ==========================================================================
@@ -95,6 +100,49 @@ function initTypewriter() {
   }
 
   setTimeout(type, 1000);
+}
+
+function initCtaTypewriter() {
+  const element = document.getElementById('ctaTypewriterText');
+  if (!element) return;
+
+  const requirements = [
+    "Figma to WordPress",
+    "Debug WordPress Issues",
+    "Website Maintenance"
+  ];
+
+  let reqIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+  let typingSpeed = 70;
+
+  function type() {
+    const currentReq = requirements[reqIndex];
+
+    if (isDeleting) {
+      element.textContent = currentReq.substring(0, charIndex - 1);
+      charIndex--;
+      typingSpeed = 35;
+    } else {
+      element.textContent = currentReq.substring(0, charIndex + 1);
+      charIndex++;
+      typingSpeed = 75;
+    }
+
+    if (!isDeleting && charIndex === currentReq.length) {
+      isDeleting = true;
+      typingSpeed = 2200; // Pause at end of word
+    } else if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      reqIndex = (reqIndex + 1) % requirements.length;
+      typingSpeed = 400; // Pause before typing next word
+    }
+
+    setTimeout(type, typingSpeed);
+  }
+
+  setTimeout(type, 1500);
 }
 
 /* ==========================================================================
@@ -477,4 +525,154 @@ function initBackToTop() {
       behavior: 'smooth'
     });
   });
+}
+
+/* ==========================================================================
+   10. GLOBAL SCROLL REVEAL ENGINE
+   ========================================================================== */
+function initScrollReveal() {
+  const revealElements = document.querySelectorAll('[data-reveal], .section-header, .stat-box, .service-card, .project-card, .timeline-item, .contact-card, .skill-card');
+  
+  if (!revealElements.length) return;
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px 0px -50px 0px',
+    threshold: 0.1
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-revealed');
+      }
+    });
+  }, observerOptions);
+
+  revealElements.forEach(el => {
+    if (!el.hasAttribute('data-reveal')) {
+      el.setAttribute('data-reveal', 'fade-up');
+    }
+    observer.observe(el);
+  });
+}
+
+/* ==========================================================================
+   11. STICKY CTA BAR CONTROLLER
+   ========================================================================== */
+function initStickyBar() {
+  const stickyBar = document.getElementById('stickyBar');
+  const heroSection = document.getElementById('hero');
+  const closeBtn = document.getElementById('stickyCloseBtn');
+
+  if (!stickyBar || !heroSection) return;
+
+  let isClosed = false;
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      isClosed = true;
+      stickyBar.classList.remove('is-visible');
+      stickyBar.classList.add('is-closed');
+    });
+  }
+
+  window.addEventListener('scroll', () => {
+    if (isClosed) return;
+
+    const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+    // On laptops or smaller screen sizes (width <= 1440px), show only after scrolling past the hero completely.
+    // On larger desktop screens, trigger 150px before the hero ends.
+    const isLaptopOrSmaller = window.innerWidth <= 1440;
+    const triggerPoint = isLaptopOrSmaller ? heroBottom : (heroBottom - 150);
+
+    if (window.scrollY > triggerPoint) {
+      stickyBar.classList.add('is-visible');
+    } else {
+      stickyBar.classList.remove('is-visible');
+    }
+  });
+}
+
+/* ==========================================================================
+   12. HERO CARD 3D INTERACTIVE TILT EFFECT
+   ========================================================================== */
+function initHero3dTilt() {
+  const container = document.getElementById('heroCard3d');
+  const visualArea = document.querySelector('.hero-visual');
+
+  if (!container || !visualArea) return;
+
+  visualArea.addEventListener('mousemove', (e) => {
+    const rect = visualArea.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const rotateX = ((y - centerY) / centerY) * -6;
+    const rotateY = ((x - centerX) / centerX) * 6;
+    
+    container.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+  });
+
+  visualArea.addEventListener('mouseleave', () => {
+    container.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+  });
+}
+
+/* ==========================================================================
+   13. ANIMATED COUNTERS FOR STATS
+   ========================================================================== */
+function initAnimatedCounters() {
+  const trustNums = document.querySelectorAll('.trust-num, .stat-number');
+  if (!trustNums.length) return;
+
+  let hasAnimated = false;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !hasAnimated) {
+        hasAnimated = true;
+        animateCounters();
+      }
+    });
+  }, { threshold: 0.3 });
+
+  const targetSections = document.querySelectorAll('.stats-strip, .hero-trust, .expertise-footer');
+  targetSections.forEach(section => {
+    if (section) observer.observe(section);
+  });
+
+  function animateCounters() {
+    trustNums.forEach(counter => {
+      const targetText = counter.textContent.trim();
+      const num = parseFloat(targetText.replace(/[^0-9.]/g, ''));
+      if (isNaN(num)) return;
+
+      const suffix = targetText.replace(/[0-9.]/g, '');
+      const duration = 1800;
+      const startTime = performance.now();
+
+      function updateNumber(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeProgress = 1 - Math.pow(1 - progress, 3);
+        const currentVal = num % 1 === 0 
+          ? Math.floor(easeProgress * num) 
+          : (easeProgress * num).toFixed(1);
+
+        counter.textContent = currentVal + suffix;
+
+        if (progress < 1) {
+          requestAnimationFrame(updateNumber);
+        } else {
+          counter.textContent = targetText;
+        }
+      }
+
+      requestAnimationFrame(updateNumber);
+    });
+  }
 }
